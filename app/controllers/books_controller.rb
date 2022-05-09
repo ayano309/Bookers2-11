@@ -1,11 +1,12 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
   before_action :user_match, only:[:edit, :update]
-  
-  
+
+
   def show
     @book = Book.find(params[:id])
     @booknew = Book.new
+    @comment = Comment.new
   end
 
   def index
@@ -35,7 +36,7 @@ class BooksController < ApplicationController
       render "edit"
     end
   end
-  
+
   def destroy
     book = current_user.books.find(params[:id])
     book.destroy
@@ -47,7 +48,7 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title,:body)
   end
-  
+
   def user_match
     @book = Book.find(params[:id])
     redirect_to "/books" unless @book.user == current_user

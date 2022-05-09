@@ -22,8 +22,20 @@
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
           <% end %>
           <td class="favorite-btn"> <%= render 'favorites/favorite_btn',book: @book %></td>
+          <td class="comments-count">コメント数: <%= @book.comments.count %></td>
         </tr>
       </table>
+      <div>
+        <table class="book_comments">
+          <%= render 'comments/index', book: @book %>
+        </table>
+        
+        <%= form_with model:[@book,@comment], local: false do |f| %>
+          <%= f.text_area :comment, size:"90x5" %>
+          <%= f.submit '送信'%>
+        <% end %>
+        </div> 
     </div>
+    
   </div>
 </div>
