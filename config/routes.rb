@@ -8,11 +8,11 @@ Rails.application.routes.draw do
 
   resources :books do
     resource :favorites, only: [:create, :destroy]
-    resources :comments, only: [:create, :destroy] 
+    resources :comments, only: [:create, :destroy]
   end
- 
-  
- 
+
+
+
   # ネストさせる
   resources :users, only: [:index,:show,:edit,:update] do
   #フォローする、外す(いいね関係と同じでresourceに注意)
@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     get 'followers' => 'relationships#followers', as: 'followers'
  end
 
+ get '/search' => 'searches#search'
 
 end
