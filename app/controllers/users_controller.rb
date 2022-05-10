@@ -1,12 +1,19 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit,:update]
-  
-  
+
+
   def show
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+
+    #特定の日に保存された投稿数
+    @today_book = @books.created_today
+    @yesterday_book = @books.created_yesterday
+    #今週、前週
+    @this_week_book = @books.created_this_week
+    @last_week_book = @books.created_last_week
   end
 
   def index
@@ -14,7 +21,7 @@ class UsersController < ApplicationController
     @users = User.all
     @book = Book.new
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end
