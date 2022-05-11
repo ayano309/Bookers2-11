@@ -29,10 +29,8 @@ class ChatsController < ApplicationController
   
   def create
     @chat = current_user.chats.new(chat_params)
-    render :validater unless @chat.save
-    #保存しなかったらvalidater.js.erbを探す。
-    
-　　　　　　　　#保存したらcreate.js.erbを探す
+    @chat.save
+    #redirect_to request.referer
   end
 
   private
